@@ -4,3 +4,4 @@
 #include "cpu_edges.cpp"
 #include "cpu_emboss.cpp"
 #include "cpu_sobel.cpp"
+#include "cpu_black_and_white.cpp"

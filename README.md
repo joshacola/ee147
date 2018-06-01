@@ -7,7 +7,7 @@ sharpen
 emboss  
 edges  
 sobel  
-  
+b_and_w (black and white)  
 Each can be called with:  
 cpu_blur("filename.bmp");  
 as seen in EXAMPLE.cpp  
