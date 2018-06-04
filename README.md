@@ -11,4 +11,7 @@ b_and_w (black and white)
 Each can be called with:  
 cpu_blur("filename.bmp");  
 as seen in EXAMPLE.cpp  
-(include filters.h to make it work)  
+(include filters.h to make it work) 
+  
+PS: compile with g++ (gcc doesnt work for some reason)  
+
