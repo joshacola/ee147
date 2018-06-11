@@ -1,6 +1,6 @@
 #include "filters.h"
+#include <string>
 using namespace std;
 int main(){
-    cpu_blur("example.bmp");
-    cpu_b_and_w("example.bmp");
+    gpu_blur("example.bmp");
 }

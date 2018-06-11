@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include "gpu_kernel.cu"
 using namespace std;
-int main (int argc, char *argv[])
+void gpu_blur (string filename)
 {
 BMP Background;
 Background.ReadFromFile(filename.c_str());
@@ -16,8 +16,8 @@ Output.SetBitDepth( 24 );
 
     ebmpBYTE *A_h, *B_h;
     ebmpBYTE *A_d, *B_d;
-    A_h = *Background.Pixels
-    B_h = *Output.Pixels
+    A_h = *Background.Pixels;
+    B_h = *Output.Pixels;
     dim3 dim_grid, dim_block;
 
     cudaMalloc((void**)&A_d, sizeof(ebmpBYTE)*width*height);
