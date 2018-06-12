@@ -1,20 +1,12 @@
-
-NVCC        = nvcc
-NVCC_FLAGS  = -O3 -I/usr/local/cuda/include std=c++11
-LD_FLAGS    = -lcudart -L/usr/local/cuda/lib64
-EXE	        = sgemm-tiled
-OBJ	        = main.o support.o
-
-default: $(EXE)
-
-main.o: main.cu kernel.cu support.h
-	$(NVCC) -c -o $@ main.cu $(NVCC_FLAGS)
-
-support.o: support.cu support.h
-	$(NVCC) -c -o $@ support.cu $(NVCC_FLAGS)
-
-$(EXE): $(OBJ)
-	$(NVCC) $(OBJ) -o $(EXE) $(LD_FLAGS)
-
-clean:
-	rm -rf *.o $(EXE)
+NVCC=nvcc
+NVCC_FLAGS= -03 -I/usr/local/cuda/include -std=c++11
+SOURCES=main.cu support.cu kernel.cu gpu_blur.cu EasyBMP.cpp cpu_sobel.cpp cpu_edges.cpp cpu_blur.cpp cpu_emboss.cpp cpu_sharpen.cpp cpu_black_and_white.cpp
+OBJECTS=$(SOURCES:.cpp=.o)
+EXECUTABLE=filter
+all: $(SOURCES) $(EXECUTABLE)
+    
+$(EXECUTABLE): $(OBJECTS) 
+	$(NVCC) $(OBJECTS) -o $@ $(NVCC_FLAGS)
+.PHONY : clean
+clean :
+	rm -rf *.o $(EXECUTABLE)

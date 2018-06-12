@@ -1,3 +1,5 @@
+#include <string>
+#include "EasyBMP.h"
 using namespace std;
 int cpu_sobel(string filename){
     

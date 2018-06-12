@@ -12,24 +12,24 @@ void gpu_blur (std::string filename)
 
     cudaError_t cuda_ret;
 
-    int *weights, *weights_d;
+    int *weights_d;
 
-    weights = (int*) malloc( sizeof(int)*18 );
+    int weights[18];
 
 
 //SET WEIGHTS:
     for(int i = 0; i < 9; i++){
         weights[i] = 1;
     }
-    weights[10] = 16;
-    weights[11] = 8;
-    weights[12] = 16;
-    weights[13] = 8;
-    weights[14] = 4;
-    weights[15] = 8;
-    weights[16] = 16;
-    weights[17] = 8;
-    weights[18] = 16;
+    weights[9] = 16;
+    weights[10] = 8;
+    weights[11] = 16;
+    weights[12] = 8;
+    weights[13] = 4;
+    weights[14] = 8;
+    weights[15] = 16;
+    weights[16] = 8;
+    weights[17] = 16;
 
 //WEIGHTS SET
 
@@ -45,7 +45,7 @@ void gpu_blur (std::string filename)
 
     cudaDeviceSynchronize();
 
-    cudaMemcpy(weights_d, weights, sizeof(int)*18, cudaMemcpyHostToDevice);
+    cudaMemcpy(weights_d, &weights[0], sizeof(int)*18, cudaMemcpyHostToDevice);
     cudaMemcpy(A_d, A_h, sizeof(ebmpBYTE)*width*height*4, cudaMemcpyHostToDevice);
 
     cudaDeviceSynchronize();
@@ -70,7 +70,6 @@ void gpu_blur (std::string filename)
     string extra = "_cpu_blur.bmp";
     fileout = fileout + extra;
     Output.WriteToFile(fileout.c_str());
-    free(weights);
     free(A_h);
     free(B_h);
 
