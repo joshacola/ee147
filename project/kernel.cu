@@ -5,7 +5,7 @@ __global__ void gpu_filter(ebmpBYTE* pixels, ebmpBYTE* pixels_out, int* weights,
     while (i<(width*height)){
         int column = i % width;
         int row = i / width;
-        if (row > 0 && column > 0 && row < hieght - 1 && column < width - 1){
+        if (row > 0 && column > 0 && row < height - 1 && column < width - 1){
             int Red = 0;
             int Green = 0;
             int Blue = 0;

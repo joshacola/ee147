@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include "kernel.cu"
 #include "support.h"
-void gpu_blur (string filename)
+#include <string>
+void gpu_blur (std::string filename)
 {
     BMP Background;
     Background.ReadFromFile(filename.c_str());
@@ -15,7 +16,7 @@ void gpu_blur (string filename)
 
     cudaError_t cuda_ret;
 
-    int *weigths, *weights_d;
+    int *weights, *weights_d;
 
     weights = (int*) malloc( sizeof(int)*18 );
 
@@ -65,7 +66,7 @@ void gpu_blur (string filename)
 
     cudaDeviceSynchronize();
 
-    string fileout = filename;
+    std::string fileout = filename;
     fileout.pop_back();
     fileout.pop_back();
     fileout.pop_back();
