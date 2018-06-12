@@ -67,11 +67,10 @@ void gpu_blur (std::string filename)
     fileout.pop_back();
     fileout.pop_back();
     fileout.pop_back();
-    string extra = "_cpu_blur.bmp";
+    string extra = "_gpu_blur.bmp";
     fileout = fileout + extra;
     Output.WriteToFile(fileout.c_str());
     free(A_h);
-    free(B_h);
 
     cudaFree(weights_d);
     cudaFree(B_d);

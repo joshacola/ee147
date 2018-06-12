@@ -293,7 +293,7 @@ BMP::BMP( BMP& Input )
 }
 
 BMP::~BMP()
-{
+{/*
  int i;
  for(i=0;i<Width;i++)
  { delete [] Pixels[i]; }
@@ -304,8 +304,8 @@ BMP::~BMP()
  if( MetaData1 )
  { delete [] MetaData1; }
  if( MetaData2 )
- { delete [] MetaData2; }
-} 
+ { delete [] MetaData2; }*/
+}
 
 RGBApixel* BMP::operator()(int i, int j)
 {
