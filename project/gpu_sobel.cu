@@ -1,6 +1,6 @@
 #include <string>
 
-void gpu_blur (std::string filename)
+void gpu_sobel (std::string filename)
 {
     BMP Background;
     Background.ReadFromFile(filename.c_str());
@@ -17,18 +17,18 @@ void gpu_blur (std::string filename)
 
 
 //SET WEIGHTS:
-    for(int i = 0; i < 9; i++){
+    for(int i = 9; i < 18; i++){
         weights[i] = 1;
     }
-    weights[9] = 16;
-    weights[10] = 8;
-    weights[11] = 16;
-    weights[12] = 8;
-    weights[13] = 4;
-    weights[14] = 8;
-    weights[15] = 16;
-    weights[16] = 8;
-    weights[17] = 16;
+    weights[0] = 1;
+    weights[1] = 2;
+    weights[2] = 1;
+    weights[3] = 0;
+    weights[4] = 0;
+    weights[5] = 0;
+    weights[6] = -1;
+    weights[7] = -2;
+    weights[8] = -1;
 
 //WEIGHTS SET
 
