@@ -22,6 +22,12 @@ __global__ void gpu_filter(ebmpBYTE* pixels, ebmpBYTE* pixels_out, int* weights,
                 Green += pixels[((row+1)*width+j)*3+1]*weights[j+7-column]/weights[j+16-column];
                 Red += pixels[((row+1)*width+j)*3+2]*weights[j+7-column]/weights[j+16-column];
             }
+	    if (Blue > 255) Blue = 255;
+            if (Green > 255) Green = 255;
+            if (Red > 255) Red = 255;
+            if (Blue < 0) Blue = 0;
+            if (Green < 0) Green = 0;;
+            if (Red < 0) Red = 0;
 	    pixels_out[(row*width+column)*3] = Blue;
 	    pixels_out[(row*width+column)*3+1] = Green;
 	    pixels_out[(row*width+column)*3+2] = Red;
