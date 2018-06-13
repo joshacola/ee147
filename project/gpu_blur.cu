@@ -8,7 +8,7 @@ void gpu_blur (std::string filename)
     int height = Background.TellHeight();
     int width = Background.TellWidth();
     int depth = Background.TellBitDepth();
-    BMP Output=Background;
+    BMP Output(Background);
 
     cudaError_t cuda_ret;
 
@@ -35,18 +35,26 @@ void gpu_blur (std::string filename)
 
     ebmpBYTE *A_h, *B_h;
     ebmpBYTE *A_d, *B_d;
-    A_h = &Background.Pixels[0][0].Blue;
-    B_h = &Output.Pixels[0][0].Blue;
+    A_h = (ebmpBYTE*) malloc( sizeof(ebmpBYTE)*width*height*3 );
+    B_h = (ebmpBYTE*) malloc( sizeof(ebmpBYTE)*width*height*3 );
+    for (int i = 0; i < height; i++){
+	for (int j = 0; j < width; j++){
+	    A_h[(i*width+j)*3] = Background.Pixels[i][j].Blue;
+	    A_h[(i*width+j)*3+1] = Background.Pixels[i][j].Green;
+	    A_h[(i*width+j)*3+2] = Background.Pixels[i][j].Red;
+
+	}
+    }
     dim3 dim_grid, dim_block;
 
     cudaMalloc((void**)&weights_d, sizeof(int)*18 );
-    cudaMalloc((void**)&A_d, sizeof(ebmpBYTE)*width*height*4);
-    cudaMalloc((void**)&B_d, sizeof(ebmpBYTE)*width*height*4);
+    cudaMalloc((void**)&A_d, sizeof(ebmpBYTE)*width*height*3);
+    cudaMalloc((void**)&B_d, sizeof(ebmpBYTE)*width*height*3);
 
     cudaDeviceSynchronize();
 
     cudaMemcpy(weights_d, &weights[0], sizeof(int)*18, cudaMemcpyHostToDevice);
-    cudaMemcpy(A_d, A_h, sizeof(ebmpBYTE)*width*height*4, cudaMemcpyHostToDevice);
+    cudaMemcpy(A_d, A_h, sizeof(ebmpBYTE)*width*height*3, cudaMemcpyHostToDevice);
 
     cudaDeviceSynchronize();
 
@@ -56,12 +64,19 @@ void gpu_blur (std::string filename)
     gpu_filter<<<DimGrid, DimBlock>>>(A_d, B_d, weights_d, width, height);
 
     cuda_ret = cudaDeviceSynchronize();
-    if(cuda_ret != cudaSuccess); //FIXME
+    if(cuda_ret != cudaSuccess) printf("error");
 
-    cudaMemcpy(B_h, B_d, sizeof(ebmpBYTE)*width*height*4, cudaMemcpyDeviceToHost);
+    cudaMemcpy(B_h, B_d, sizeof(ebmpBYTE)*width*height*3, cudaMemcpyDeviceToHost);
 
     cudaDeviceSynchronize();
 
+    for (int i = 0; i < height; i++){
+	for (int j = 0; j < width; j++){
+	    Output.Pixels[i][j].Blue = B_h[(i*width+j)*3];
+	    Output.Pixels[i][j].Green = B_h[(i*width+j)*3+1];
+	    Output.Pixels[i][j].Red = B_h[(i*width+j)*3+2];
+	}
+    }
     std::string fileout = filename;
     fileout.pop_back();
     fileout.pop_back();
@@ -71,6 +86,7 @@ void gpu_blur (std::string filename)
     fileout = fileout + extra;
     Output.WriteToFile(fileout.c_str());
     free(A_h);
+    free(B_h);
 
     cudaFree(weights_d);
     cudaFree(B_d);
