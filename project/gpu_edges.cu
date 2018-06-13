@@ -81,7 +81,7 @@ void gpu_edges (std::string filename)
     fileout.pop_back();
     fileout.pop_back();
     fileout.pop_back();
-    string extra = "_gpu_blur.bmp";
+    string extra = "_gpu_edges.bmp";
     fileout = fileout + extra;
     Output.WriteToFile(fileout.c_str());
     free(A_h);

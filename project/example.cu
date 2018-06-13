@@ -5,5 +5,5 @@
 #include <string>
 using namespace std;
 int main(){
-    gpu_blur("example.bmp");
+    gpu_edges("example.bmp");
 }
