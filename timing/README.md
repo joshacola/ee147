@@ -1,6 +1,3 @@
-
-run main.cu to see timing
-
 GPU filters are done! These are the filters we have so far:  
 blur  
 sharpen  
@@ -23,4 +20,4 @@ because I don't know how to use makefiles and I'm too lazy to learn
   
 or alternatively you can just type  
 nvcc -I/usr/local/cuda/include -std=c++11 filename.cu 
-
+   
