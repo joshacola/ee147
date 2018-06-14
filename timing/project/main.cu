@@ -8,7 +8,11 @@
 using namespace std;
 
 int main(){
-	cpu_edges("example.bmp");
+    //Timing Start
+    struct timespec begin, end;
+    clock_gettime(CLOCK_MONOTONIC, &begin);
+
+    cpu_edges("example.bmp");
     gpu_edges("example.bmp");
     cpu_blur("example.bmp");
     gpu_blur("example.bmp");
@@ -18,4 +22,12 @@ int main(){
     gpu_sharpen("example.bmp");
     cpu_sobel("example.bmp");
     gpu_sobel("example.bmp");
+
+    //Timing End
+    clock_gettime(CLOCK_MONOTONIC, &end);
+    uint64_t time_taken;
+    time_taken = (end.tv_sec - begin.tv_sec)*1000000000;
+    time_taken+=(end.tv_nsec - begin.tv_nsec);
+    time_taken = time_taken / 1000000;
+    cout << "Total time: " <<  time_taken << " ms" << endl;
 }

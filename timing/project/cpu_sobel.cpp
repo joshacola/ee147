@@ -97,7 +97,8 @@ int cpu_sobel(string filename){
     //Timing End
     clock_gettime(CLOCK_MONOTONIC, &end);
     uint64_t time_taken;
-    time_taken = (end.tv_sec - begin.tv_sec) + end.tv_nsec - begin.tv_nsec;
+    time_taken = (end.tv_sec - begin.tv_sec)*1000000000;
+    time_taken+=(end.tv_nsec - begin.tv_nsec);
     time_taken = time_taken / 1000000;
     cout << "CPU Sobel time: " <<  time_taken << " ms" << endl;
 
