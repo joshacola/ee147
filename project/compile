@@ -1,0 +1,1 @@
+nvcc -I/usr/local/cuda/include -std=c++11 example.cu

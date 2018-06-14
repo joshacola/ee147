@@ -30,7 +30,7 @@ class BMP
  int BitDepth;
  int Width;
  int Height;
- RGBApixel** Pixels;
+ 
  RGBApixel* Colors;
  int XPelsPerMeter;
  int YPelsPerMeter;
@@ -55,7 +55,7 @@ class BMP
  ebmpBYTE FindClosestColor( RGBApixel& input );
 
  public: 
-
+ RGBApixel** Pixels;
  int TellBitDepth( void );
  int TellWidth( void );
  int TellHeight( void );
