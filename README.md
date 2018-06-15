@@ -1,26 +1,7 @@
-
-run main.cu to see timing
-
-GPU filters are done! These are the filters we have so far:  
-blur  
-sharpen  
-emboss  
-edges  
-sobel  
-b_and_w  
+For bitmap images, with blur, sharpen, emboss, sobel, and edge detection filters:  
+First open the directory /c++_files. The image file to run kernels on must be in this directory and needs to be called “example.bmp” (we have included an image, so it is not necessary to find your own if you don’t want to). The example program can being run using make and then ./a.out (from /c++ files).  
+Or, alternatively, you write your own program using the filter functions found in main.cu, then compile with      nvcc -I/usr/local/cuda/include -std=c++11 filename.cu  
+If you choose to write your own program, make sure to include filters.h, this will include all the other required files for you (open main.cu to see an example).  
   
-Each can be called with:  
-  
-cpu_blur("filename.bmp");  
-OR  
-gpu_blur("filename.bmp");  
-  
-with the exception of b_and_w, (only cpu_b_and_w is done at this time)  
-NOTE: Include filters.h to make it work!  
-  
-example.cu gives an example program, you can compile it with ./compile  
-because I don't know how to use makefiles and I'm too lazy to learn  
-  
-or alternatively you can just type  
-nvcc -I/usr/local/cuda/include -std=c++11 filename.cu 
-
+For jpeg images with black and white filter:  
+The black and white filter is written with python. Can be run using the python main.py command.   
