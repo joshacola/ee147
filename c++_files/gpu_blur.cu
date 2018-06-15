@@ -1,6 +1,6 @@
 #include <string>
 
-void gpu_emboss (std::string filename)
+void gpu_blur (std::string filename)
 {
     BMP Background;
     Background.ReadFromFile(filename.c_str());
@@ -17,18 +17,18 @@ void gpu_emboss (std::string filename)
 
 
 //SET WEIGHTS:
-    for(int i = 9; i < 18; i++){
+    for(int i = 0; i < 9; i++){
         weights[i] = 1;
     }
-    weights[0] = -2;
-    weights[1] = -1;
-    weights[2] = 0;
-    weights[3] = -1;
-    weights[4] = 1;
-    weights[5] = 1;
-    weights[6] = 0;
-    weights[7] = 1;
-    weights[8] = 2;
+    weights[9] = 16;
+    weights[10] = 8;
+    weights[11] = 16;
+    weights[12] = 8;
+    weights[13] = 4;
+    weights[14] = 8;
+    weights[15] = 16;
+    weights[16] = 8;
+    weights[17] = 16;
 
 //WEIGHTS SET
 
@@ -45,7 +45,12 @@ void gpu_emboss (std::string filename)
 	}
     }
     dim3 dim_grid, dim_block;
-
+//Timing start
+cudaEvent_t begin, end;
+float time;
+cudaEventCreate(&begin);
+cudaEventCreate(&end);
+cudaEventRecord(begin, 0);
     cudaMalloc((void**)&weights_d, sizeof(int)*18 );
     cudaMalloc((void**)&A_d, sizeof(ebmpBYTE)*width*height*3);
     cudaMalloc((void**)&B_d, sizeof(ebmpBYTE)*width*height*3);
@@ -57,12 +62,6 @@ void gpu_emboss (std::string filename)
 
     cudaDeviceSynchronize();
 
-//Timing start
-    cudaEvent_t begin, end;
-    float time;
-    cudaEventCreate(&begin);
-    cudaEventCreate(&end);
-    cudaEventRecord(begin, 0);
 
     dim3 DimGrid(1, 1, 1);
     dim3 DimBlock(1024, 1, 1);
@@ -88,14 +87,14 @@ void gpu_emboss (std::string filename)
     cudaEventRecord(end, 0);
     cudaEventSynchronize(end);
     cudaEventElapsedTime(&time, begin, end);
-    printf("GPU Emboss time: %f ms \n", time );
-
+    printf("GPU Blur time: %f ms \n", time );
+    
     std::string fileout = filename;
     fileout.pop_back();
     fileout.pop_back();
     fileout.pop_back();
     fileout.pop_back();
-    string extra = "_gpu_emboss.bmp";
+    string extra = "_gpu_blur.bmp";
     fileout = fileout + extra;
     Output.WriteToFile(fileout.c_str());
     free(A_h);
