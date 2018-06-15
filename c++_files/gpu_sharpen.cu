@@ -32,6 +32,13 @@ void gpu_sharpen (std::string filename)
 
 //WEIGHTS SET
 
+//Timing start
+cudaEvent_t begin, end;
+float time;
+cudaEventCreate(&begin);
+cudaEventCreate(&end);
+cudaEventRecord(begin, 0);
+
     ebmpBYTE *A_h, *B_h;
     ebmpBYTE *A_d, *B_d;
     A_h = (ebmpBYTE*) malloc( sizeof(ebmpBYTE)*width*height*3 );
@@ -45,13 +52,6 @@ void gpu_sharpen (std::string filename)
 	}
     }
     dim3 dim_grid, dim_block;
-
-//Timing start
-cudaEvent_t begin, end;
-float time;
-cudaEventCreate(&begin);
-cudaEventCreate(&end);
-cudaEventRecord(begin, 0);
 
     cudaMalloc((void**)&weights_d, sizeof(int)*18 );
     cudaMalloc((void**)&A_d, sizeof(ebmpBYTE)*width*height*3);
