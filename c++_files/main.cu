@@ -12,6 +12,7 @@ int main(){
     struct timespec begin, end;
     clock_gettime(CLOCK_MONOTONIC, &begin);
 
+    //Filters
     cpu_edges("example.bmp");
     gpu_edges("example.bmp");
     cpu_blur("example.bmp");
