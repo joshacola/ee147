@@ -39,43 +39,43 @@ int cpu_sharpen(string filename){
 
     for (int i = 1; i < width-1; i++){
         for (int j = 1; j < height-1; j++){
-            RGBApixel temp = Background.GetPixel(i, j);
-            RGBApixel temp2 = Background.GetPixel(i-1, j-1);
+            RGBApixel temp = Background.Pixels[i][j];
+            RGBApixel temp2 = Background.Pixels[i-1][j-1];
             int Blue = 0;
             int Green = 0;
             int Red = 0;
             Blue += (static_cast<int>(temp2.Blue)*mult_weights[0][0])/div_weights[0][0];;
             Green += (static_cast<int>(temp2.Green)*mult_weights[0][0])/div_weights[0][0];
             Red += (static_cast<int>(temp2.Red)*mult_weights[0][0])/div_weights[0][0];
-            temp2 = Background.GetPixel(i, j-1);
+            temp2 = Background.Pixels[i][j-1];
             Blue += (static_cast<int>(temp2.Blue)*mult_weights[1][0])/div_weights[1][0];;
             Green += (static_cast<int>(temp2.Green)*mult_weights[1][0])/div_weights[1][0];
             Red += (static_cast<int>(temp2.Red)*mult_weights[1][0])/div_weights[1][0];
-            temp2 = Background.GetPixel(i+1, j-1);
+            temp2 = Background.Pixels[i+1][j-1];
             Blue += (static_cast<int>(temp2.Blue)*mult_weights[2][0])/div_weights[2][0];;
             Green += (static_cast<int>(temp2.Green)*mult_weights[2][0])/div_weights[2][0];
             Red += (static_cast<int>(temp2.Red)*mult_weights[2][0])/div_weights[2][0];
-            temp2 = Background.GetPixel(i-1, j);
+            temp2 = Background.Pixels[i-1][j];
             Blue += (static_cast<int>(temp2.Blue)*mult_weights[0][1])/div_weights[0][1];;
             Green += (static_cast<int>(temp2.Green)*mult_weights[0][1])/div_weights[0][1];
             Red += (static_cast<int>(temp2.Red)*mult_weights[0][1])/div_weights[0][1];
-            temp2 = Background.GetPixel(i, j);
+            temp2 = Background.Pixels[i][j];
             Blue += (static_cast<int>(temp2.Blue)*mult_weights[1][1])/div_weights[1][1];;
             Green += (static_cast<int>(temp2.Green)*mult_weights[1][1])/div_weights[1][1];
             Red += (static_cast<int>(temp2.Red)*mult_weights[1][1])/div_weights[1][1];
-            temp2 = Background.GetPixel(i+1, j);
+            temp2 = Background.Pixels[i+1][j];
             Blue += (static_cast<int>(temp2.Blue)*mult_weights[2][1])/div_weights[2][1];;
             Green += (static_cast<int>(temp2.Green)*mult_weights[2][1])/div_weights[2][1];
             Red += (static_cast<int>(temp2.Red)*mult_weights[2][1])/div_weights[2][1];
-            temp2 = Background.GetPixel(i-1, j+1);
+            temp2 = Background.Pixels[i-1][j+1];
             Blue += (static_cast<int>(temp2.Blue)*mult_weights[0][2])/div_weights[0][2];;
             Green += (static_cast<int>(temp2.Green)*mult_weights[0][2])/div_weights[0][2];
             Red += (static_cast<int>(temp2.Red)*mult_weights[0][2])/div_weights[0][2];
-            temp2 = Background.GetPixel(i, j+1);
+            temp2 = Background.Pixels[i][j+1];
             Blue += (static_cast<int>(temp2.Blue)*mult_weights[1][2])/div_weights[1][2];;
             Green += (static_cast<int>(temp2.Green)*mult_weights[1][2])/div_weights[1][2];
             Red += (static_cast<int>(temp2.Red)*mult_weights[1][2])/div_weights[1][2];
-            temp2 = Background.GetPixel(i+1, j+1);
+            temp2 = Background.Pixels[i+1][j+1];
             Blue += (static_cast<int>(temp2.Blue)*mult_weights[2][2])/div_weights[2][2];;
             Green += (static_cast<int>(temp2.Green)*mult_weights[2][2])/div_weights[2][2];
             Red += (static_cast<int>(temp2.Red)*mult_weights[2][2])/div_weights[2][2];
@@ -88,7 +88,7 @@ int cpu_sharpen(string filename){
             temp.Blue = static_cast<char>(Blue);
             temp.Green = static_cast<char>(Green);
             temp.Red = static_cast<char>(Red);
-            Output.SetPixel(i, j, temp);
+            Output.Pixels[i][j] = temp;
         }
     }
 
