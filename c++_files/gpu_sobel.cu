@@ -90,7 +90,7 @@ cudaEventRecord(begin, 0);
     cudaEventRecord(end, 0);
     cudaEventSynchronize(end);
     cudaEventElapsedTime(&time, begin, end);
-    printf("GPU Sobel time: %f ms \n", time );
+    printf("GPU Sobel time: %f ms \n\n", time );
 
     std::string fileout = filename;
     fileout.pop_back();

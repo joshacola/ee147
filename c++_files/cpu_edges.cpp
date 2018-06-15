@@ -98,7 +98,7 @@ int cpu_edges(string filename){
     time_taken = (end.tv_sec - begin.tv_sec)*1000000000;
     time_taken+=(end.tv_nsec - begin.tv_nsec);
     time_taken = time_taken / 1000000;
-    cout << "CPU_edges time: " <<  time_taken << " ms" << endl;
+    cout << "CPU Edges time: " <<  time_taken << " ms" << endl;
 
     //cout << "writing bmp ... " << endl;
     string fileout = filename;

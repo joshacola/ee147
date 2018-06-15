@@ -87,7 +87,7 @@ cudaEventRecord(begin, 0);
     cudaEventRecord(end, 0);
     cudaEventSynchronize(end);
     cudaEventElapsedTime(&time, begin, end);
-    printf("GPU Blur time: %f ms \n", time );
+    printf("GPU Blur time: %f ms \n\n", time );
     
     std::string fileout = filename;
     fileout.pop_back();
