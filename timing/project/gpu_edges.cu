@@ -46,6 +46,13 @@ void gpu_edges (std::string filename)
     }
     dim3 dim_grid, dim_block;
 
+//Timing start
+cudaEvent_t begin, end;
+float time;
+cudaEventCreate(&begin);
+cudaEventCreate(&end);
+cudaEventRecord(begin, 0);
+
     cudaMalloc((void**)&weights_d, sizeof(int)*18 );
     cudaMalloc((void**)&A_d, sizeof(ebmpBYTE)*width*height*3);
     cudaMalloc((void**)&B_d, sizeof(ebmpBYTE)*width*height*3);
@@ -57,12 +64,7 @@ void gpu_edges (std::string filename)
 
     cudaDeviceSynchronize();
 
-//Timing start
-    cudaEvent_t begin, end;
-    float time;
-    cudaEventCreate(&begin);
-    cudaEventCreate(&end);
-    cudaEventRecord(begin, 0);
+
 
 
     dim3 DimGrid(1, 1, 1);
